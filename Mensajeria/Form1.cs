@@ -96,8 +96,15 @@ namespace Mensajeria
         }
         void Mostrar()
         {
-
-            MessageBox.Show("Usted seleccionó el envío por " + aviso + " y notificar por " + extra + "\nEl total del envío es de: $" + resultado.ToString("N2"));
+            if (extra != "")
+            {
+                MessageBox.Show("Usted seleccionó el envío por " + aviso + " y notificar por " + extra + "\nEl total del envío es de: $" + resultado.ToString("N2"));
+            }
+            else
+            {
+                MessageBox.Show("Usted seleccionó el envío por " + aviso + " y no soleccionó notificación.-\nEl total del envío es de: $" + resultado.ToString("N2"));
+            }
+            
         }
     }
 }
