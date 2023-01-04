@@ -17,6 +17,7 @@ namespace Mensajeria
         double resultado, recargo;
         string  aviso, extra;
 
+        //Podremos mover la aplicación con el mouse
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.dll", EntryPoint = "SendMessage")]
