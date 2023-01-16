@@ -106,8 +106,13 @@ namespace ProjectoCurso
                 MessageBox.Show(ex.ToString());
             }
         }
+        private void ocultarColumnas()
+        {
+            dgvPlanilla.Columns["UrlImagen"].Visible = false;
+            dgvPlanilla.Columns["Id"].Visible = false;
+        }
 
-        private void btnFiltro_Click(object sender, EventArgs e)
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             List<Jugador> listaFiltrada;
             string filtro = txtFiltro.Text;
@@ -124,11 +129,6 @@ namespace ProjectoCurso
             dgvPlanilla.DataSource = null;
             dgvPlanilla.DataSource = listaFiltrada;
             ocultarColumnas();
-        }
-        private void ocultarColumnas()
-        {
-            dgvPlanilla.Columns["UrlImagen"].Visible = false;
-            dgvPlanilla.Columns["Id"].Visible = false;
         }
     }
 }

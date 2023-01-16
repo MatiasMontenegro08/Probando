@@ -117,6 +117,7 @@
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.Size = new System.Drawing.Size(198, 20);
             this.txtFiltro.TabIndex = 7;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
             // 
             // btnFiltro
             // 
@@ -126,7 +127,6 @@
             this.btnFiltro.TabIndex = 8;
             this.btnFiltro.Text = "BUSCAR";
             this.btnFiltro.UseVisualStyleBackColor = true;
-            this.btnFiltro.Click += new System.EventHandler(this.btnFiltro_Click);
             // 
             // frmPrincipal
             // 
