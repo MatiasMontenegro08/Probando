@@ -26,8 +26,11 @@ namespace ProjectoCurso
         }
         private void dgvPlanilla_SelectionChanged(object sender, EventArgs e)
         {
-            Jugador seleccionado = (Jugador)dgvPlanilla.CurrentRow.DataBoundItem;
-            CargarImagen(seleccionado.UrlImagen);
+            if (dgvPlanilla.CurrentRow != null)
+            {
+                Jugador seleccionado = (Jugador)dgvPlanilla.CurrentRow.DataBoundItem;
+                CargarImagen(seleccionado.UrlImagen);
+            }
         }
 
         //MÉTODOS
@@ -55,9 +58,9 @@ namespace ProjectoCurso
             Planilla conectar = new Planilla();
             listaJugador = conectar.Listar();
             dgvPlanilla.DataSource = listaJugador;
-            dgvPlanilla.Columns["UrlImagen"].Visible = false;
-            dgvPlanilla.Columns["Id"].Visible = false;
+            ocultarColumnas();
             CargarImagen(listaJugador[0].UrlImagen);
+            
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -104,5 +107,28 @@ namespace ProjectoCurso
             }
         }
 
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+            List<Jugador> listaFiltrada;
+            string filtro = txtFiltro.Text;
+
+            if (filtro != null)
+            {
+                listaFiltrada = listaJugador.FindAll(x => x.Nombre.ToLower().Contains(filtro.ToLower()) || x.Posicion.Descripcion.ToLower().Contains(filtro.ToLower()));
+            }
+            else
+            {
+                listaFiltrada = listaJugador;
+            }
+
+            dgvPlanilla.DataSource = null;
+            dgvPlanilla.DataSource = listaFiltrada;
+            ocultarColumnas();
+        }
+        private void ocultarColumnas()
+        {
+            dgvPlanilla.Columns["UrlImagen"].Visible = false;
+            dgvPlanilla.Columns["Id"].Visible = false;
+        }
     }
 }
