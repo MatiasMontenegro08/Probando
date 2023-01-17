@@ -23,6 +23,8 @@ namespace ProjectoCurso
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
             CargarPlanilla();
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Edad");
         }
         private void dgvPlanilla_SelectionChanged(object sender, EventArgs e)
         {
@@ -129,6 +131,41 @@ namespace ProjectoCurso
             dgvPlanilla.DataSource = null;
             dgvPlanilla.DataSource = listaFiltrada;
             ocultarColumnas();
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Nombre")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+        }
+
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+            Planilla planilla = new Planilla();
+            try
+            {
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroDB.Text;
+                dgvPlanilla.DataSource = planilla.filtrar(campo, criterio, filtro);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

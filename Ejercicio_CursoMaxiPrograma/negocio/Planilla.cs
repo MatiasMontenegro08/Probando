@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using dominio;
+using System.Collections;
 
 namespace negocio
 {
@@ -116,5 +117,68 @@ namespace negocio
 				throw ex;
 			}
 		}
-	}
+
+        public List<Jugador> filtrar(string campo, string criterio, string filtro)
+        {
+            List<Jugador> jugador = new List<Jugador>();
+			AccesoDatos datos = new AccesoDatos();
+
+			try
+			{
+				string consulta = "select j.Nombre, j.Edad, p.Descripcion, j.Peso, j.UrlImagen, j.Altura, J.Id  from JUGADORES J, POSICION P where j.IdPosicion = p.Id and ";
+				if (campo == "Nombre")
+				{
+					switch (criterio)
+					{
+						case "Comienza con":
+							consulta += "j.Nombre like '" + filtro + "%'";
+							break;
+						case "Termina con":
+							consulta += "j.Nombre like '%" + filtro + "'";
+							break;
+						default:
+							consulta += "j.Nombre like '%" + filtro + "%'";
+							break;
+					}
+				}
+				else
+				{
+					switch (criterio)
+					{
+						case "Mayor a":
+							consulta += "j.Edad > " + filtro;
+							break;
+						case "Menor a":
+							consulta += "j.Edad < " + filtro;
+                            break;
+						default:
+							consulta += "j.Edad = " + filtro;
+							break;
+					}
+				}
+				datos.setearConsulta(consulta);
+				datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Jugador temporal = new Jugador();
+                    temporal.Id = (int)datos.Lector["Id"];
+                    temporal.Nombre = (string)datos.Lector["Nombre"];
+                    temporal.Edad = (int)datos.Lector["Edad"];
+                    temporal.Posicion = new Posicion();
+                    temporal.Posicion.Descripcion = (string)datos.Lector["Descripcion"];
+                    temporal.Peso = (double)datos.Lector["Peso"];
+                    temporal.UrlImagen = (string)datos.Lector["UrlImagen"];
+                    temporal.Altura = (double)datos.Lector["Altura"];
+
+                    jugador.Add(temporal);
+				}
+                return jugador;
+            }
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+        }
+    }
 }
