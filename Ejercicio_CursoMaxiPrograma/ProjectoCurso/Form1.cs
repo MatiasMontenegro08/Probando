@@ -44,7 +44,7 @@ namespace ProjectoCurso
             }
             catch (Exception)
             {
-                pbxFoto.Load("C:\\Users\\matia\\Downloads\\nodisponible.png");
+                pbxFoto.Load("C:\\Users\\matia\\OneDrive\\Escritorio\\MAXIPROGRAMA\\Nueva carpeta\\nodisponible.png");
             }
         }
 

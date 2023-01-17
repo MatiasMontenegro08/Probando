@@ -43,6 +43,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.cboPosicion = new System.Windows.Forms.ComboBox();
             this.pbxFoto = new System.Windows.Forms.PictureBox();
+            this.btnAltaImg = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxFoto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,7 +133,7 @@
             // 
             this.txtFoto.Location = new System.Drawing.Point(79, 186);
             this.txtFoto.Name = "txtFoto";
-            this.txtFoto.Size = new System.Drawing.Size(211, 20);
+            this.txtFoto.Size = new System.Drawing.Size(166, 20);
             this.txtFoto.TabIndex = 11;
             this.txtFoto.Leave += new System.EventHandler(this.txtFoto_Leave);
             // 
@@ -174,11 +175,22 @@
             this.pbxFoto.TabIndex = 15;
             this.pbxFoto.TabStop = false;
             // 
+            // btnAltaImg
+            // 
+            this.btnAltaImg.Location = new System.Drawing.Point(251, 184);
+            this.btnAltaImg.Name = "btnAltaImg";
+            this.btnAltaImg.Size = new System.Drawing.Size(39, 23);
+            this.btnAltaImg.TabIndex = 16;
+            this.btnAltaImg.Text = "+";
+            this.btnAltaImg.UseVisualStyleBackColor = true;
+            this.btnAltaImg.Click += new System.EventHandler(this.btnAltaImg_Click);
+            // 
             // frmIngresoJugador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 259);
+            this.Controls.Add(this.btnAltaImg);
             this.Controls.Add(this.pbxFoto);
             this.Controls.Add(this.cboPosicion);
             this.Controls.Add(this.btnCancelar);
@@ -221,5 +233,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.ComboBox cboPosicion;
         private System.Windows.Forms.PictureBox pbxFoto;
+        private System.Windows.Forms.Button btnAltaImg;
     }
 }

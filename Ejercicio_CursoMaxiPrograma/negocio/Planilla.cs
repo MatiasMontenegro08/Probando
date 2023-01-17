@@ -18,7 +18,7 @@ namespace negocio
             try
 			{
 
-				datos.setearConsulta("select j.Nombre, j.Edad, p.Descripcion, j.Peso, j.UrlImagen, j.Altura, J.Id  from JUGADORES J, POSICION P where j.IdPosicion = p.Id");
+				datos.setearConsulta("select j.Nombre, j.Edad, p.Id, p.Descripcion, j.Peso, j.UrlImagen, j.Altura, J.Id  from JUGADORES J, POSICION P where j.IdPosicion = p.Id");
 				datos.ejecutarLectura();
 				while (datos.Lector.Read())
 				{
@@ -27,6 +27,7 @@ namespace negocio
 					temporal.Nombre = (string)datos.Lector["Nombre"];
 					temporal.Edad = (int)datos.Lector["Edad"];
 					temporal.Posicion = new Posicion();
+					temporal.Posicion.Id = (int)datos.Lector["Id"];
 					temporal.Posicion.Descripcion = (string)datos.Lector["Descripcion"];
 					temporal.Peso = (double)datos.Lector["Peso"];
 					temporal.UrlImagen = (string)datos.Lector["UrlImagen"];

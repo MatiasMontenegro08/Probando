@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
 using negocio;
+using System.IO;
+using System.Configuration;
 
 namespace ProjectoCurso
 {
     public partial class frmIngresoJugador : Form
     {
         private Jugador jugador = null;
+        private OpenFileDialog archivo = null;
         public frmIngresoJugador()
         {
             InitializeComponent();
@@ -58,12 +61,20 @@ namespace ProjectoCurso
                     MessageBox.Show("Jugador agregado!!!");
                 }
 
-                Close();
+                if (archivo != null && !(txtFoto.Text.ToLower().Contains("http")))
+                {
+                    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-folder"] + archivo.SafeFileName);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+            finally 
+            { 
+                Close(); 
+            }
+
         }
 
         private void frmIngresoJugador_Load(object sender, EventArgs e)
@@ -76,13 +87,13 @@ namespace ProjectoCurso
                 cboPosicion.DisplayMember = "Descripcion";
                 if (jugador != null)
                 {
-                    cboPosicion.SelectedValue = jugador.Posicion.Id;
                     txtNombre.Text = jugador.Nombre;
                     txtEdad.Text = jugador.Edad.ToString();
                     txtAltura.Text = jugador.Altura.ToString();
                     txtPeso.Text = jugador.Peso.ToString();
                     txtFoto.Text = jugador.UrlImagen;
                     CargarImagen(jugador.UrlImagen); 
+                    cboPosicion.SelectedValue = jugador.Posicion.Id;
                 }
             }
             catch (Exception ex)
@@ -104,6 +115,17 @@ namespace ProjectoCurso
             catch (Exception)
             {
                 pbxFoto.Load("C:\\Users\\matia\\Downloads\\nodisponible.png");
+            }
+        }
+
+        private void btnAltaImg_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg;|png|*.png";
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtFoto.Text = archivo.FileName;
+                CargarImagen(archivo.FileName);
             }
         }
     }
